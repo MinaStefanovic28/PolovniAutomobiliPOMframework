@@ -1,0 +1,38 @@
+name: Polovni Automobili Java Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Preuzimanje koda
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Podešavanje Java 21 okruženja
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      # 3. Pokretanje testova
+      - name: Run Maven tests
+        run: mvn test
+
+      # 4. Čuvanje izveštaja o testovima
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: java-test-reports
+          path: target/surefire-reports/
+          retention-days: 14
