@@ -6,9 +6,8 @@ on:
   pull_request:
     branches: [ main, master ]
   workflow_dispatch:
-
-    schedule:
-      - cron: '0 4 * * *'
+  schedule:
+    - cron: '0 4 * * *'
 
 jobs:
   run-tests:
@@ -19,14 +18,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
 
+      # Pokreće testove unutar xvfb (virtuelnog ekrana) da Selenium radi bez izmjene koda
       - name: Run Maven tests
-        run: mvn test
+        run: xvfb-run mvn test
 
       - name: Upload Test Results
         if: always()
