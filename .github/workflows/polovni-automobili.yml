@@ -26,7 +26,7 @@ jobs:
 
       # Pokreće testove unutar xvfb (virtuelnog ekrana) da Selenium radi bez izmjene koda
       - name: Run Maven tests
-        run: xvfb-run mvn test
+        run: xvfb-run mvn test -Dheadless=true
 
       - name: Upload Test Results
         if: always()
