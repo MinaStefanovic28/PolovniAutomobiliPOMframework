@@ -23,9 +23,12 @@ public class BaseTest {
     @Before
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
+        options.addArguments("--headless=new"); // Pokreće Chrome u pozadini bez interfejsa
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--window-size=1920,1080"); // Zamenjuje maximizeCurrentWindow()
+
+        WebDriver driver = new ChromeDriver(options);
 
         homePage = new HomePage(driver);
         searchResultPage = new SearchResultPage(driver);
