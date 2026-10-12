@@ -3,6 +3,11 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class HomePage extends BasePage {
 
@@ -21,8 +26,12 @@ public class HomePage extends BasePage {
 
 
     public void acceptCookies() {
-        if (isDisplayed(cookieAcceptBtn)) {
-            click(cookieAcceptBtn);
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement button = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'U redu')]")));
+            button.click();
+        } catch (Exception e) {
+            System.out.println("Kolačići se nisu pojavili ili su već prihvaćeni, nastavljam test.");
         }
     }
 

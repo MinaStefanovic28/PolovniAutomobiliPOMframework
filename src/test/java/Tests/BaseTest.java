@@ -23,12 +23,21 @@ public class BaseTest {
     @Before
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new"); // Pokreće Chrome u pozadini bez interfejsa
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--window-size=1920,1080"); // Zamenjuje maximizeCurrentWindow()
+        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 
-        WebDriver driver = new ChromeDriver(options);
+// Ako se pokreće na GitHub-u (ili ako proslediš -Dheadless=true), radiće u pozadini
+// U suprotnom, lokalno se otvara normalan prozor
+        if ("true".equals(System.getProperty("headless"))) {
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--window-size=1920,1080");
+        } else {
+            // Lokalno otvoreno
+            options.addArguments("--start-maximized");
+        }
+
+        driver = new ChromeDriver(options);
 
         homePage = new HomePage(driver);
         searchResultPage = new SearchResultPage(driver);
