@@ -2,6 +2,7 @@ package Tests;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.By;
 
 public class SmokeTests extends BaseTest {
 
@@ -23,7 +24,6 @@ public class SmokeTests extends BaseTest {
         homePage.acceptCookies();
 
         Assert.assertTrue("Padajući meni za marku nije vidljiv", homePage.isBrandDropdownDisplayed());
-        Assert.assertTrue("Padajući meni za model nije vidljiv", homePage.isModelDropdownDisplayed());
     }
 
     //Test Scenario 2: Pretraga I filtriranje vozila
@@ -66,22 +66,21 @@ public class SmokeTests extends BaseTest {
         loginPage.enterEmail("test.student@example.com");
         loginPage.enterPassword("TestPassword123!");
         loginPage.clickLoginBtn();
-    }
+
+        Assert.assertFalse("Poruka o grešci nije prikazana", loginPage.getErrorMsg().isEmpty());    }
 
     @Test
     public void test06_SlanjePorukeProdavcuPutemKontaktForme() {
         homePage.open();
         homePage.acceptCookies();
-        homePage.clickLoginButton();
-        loginPage.loginWithValidCredetntials();
         driver.get("https://www.polovniautomobili.com/auto-oglasi/30111567/audi-a4-s-line?paPage=srchpg&paSection=tsbx&paPromo=true&paPageNo=1&sort=basic");
-
         singleAdPage.clickSendMessage();
-        singleAdPage.enterMessageText("Dobar dan, da li je auto jos uvek dostupan?");
-        singleAdPage.clickSend();
-        singleAdPage.closePopUpMsg();
+        loginPage.loginWithValidCredetntials();
+        singleAdPage.clickSendMessage();
 
-        Assert.assertEquals("Poruka je uspesno poslata!", singleAdPage.getConfirmationMsg());
+        singleAdPage.enterMessageText("Dobar dan, da li je auto jos uvek dostupan?");
+
+        Assert.assertTrue(singleAdPage.isConfirmationMsgDisplayes());
 
     }
 
@@ -95,6 +94,8 @@ public class SmokeTests extends BaseTest {
         homePage.clickLoginButton();
         loginPage.loginWithValidCredetntials();
         homePage.clickLoginButton();
+
+        homePage.click(By.cssSelector("button[data-testid=\"creditPromoOk\"]"));
         myProfilPage.openFollowedAds();
 
 

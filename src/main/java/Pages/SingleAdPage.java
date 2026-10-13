@@ -18,7 +18,7 @@ public class SingleAdPage extends BasePage {
     //pop-up Contact Seller
     private By textArea = By.xpath("//*[@placeholder=\"Tekst poruke\"]");
     private By submitMsgBtn = By.id("sendMessageSubmit");
-    private By confirmationMsg = By.id("confirmationModal");
+    public By confirmationMsg = By.id("confirmationModal");
     private By closePopUpMsgBtn = By.xpath("//*[text()=\"U redu\"]");
 
 
@@ -53,6 +53,12 @@ public class SingleAdPage extends BasePage {
     public void closePopUpMsg() {
         click(closePopUpMsgBtn);
     }
+
+    public boolean isConfirmationMsgDisplayes() {
+        return  isDisplayed(confirmationMsg);
+    }
+
+
 }
 
 

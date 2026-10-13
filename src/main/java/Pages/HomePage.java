@@ -49,9 +49,12 @@ public class HomePage extends BasePage {
     }
 
     public void clickSearchBtn() {
+        // 1. Klikni na logo ili naslov da zatvoriš otvoreni padajući meni (fuel/gorivo)
+        click(logoHeader); // ili bilo koji drugi element koji je sigurno slobodan
+
+        // 2. Zatim klikni na dugme za pretragu
         click(btnPretraga);
     }
-
     public void open() {
         driver.get("https://www.polovniautomobili.com/");
     }
