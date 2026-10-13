@@ -25,17 +25,11 @@ public class BaseTest {
         ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 
-// Ako se pokreće na GitHub-u (ili ako proslediš -Dheadless=true), radiće u pozadini
-// U suprotnom, lokalno se otvara normalan prozor
-        if ("true".equals(System.getProperty("headless"))) {
             options.addArguments("--headless=new");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--window-size=1920,1080");
-        } else {
-            // Lokalno otvoreno
-            options.addArguments("--start-maximized");
-        }
+
 
         driver = new ChromeDriver(options);
 
