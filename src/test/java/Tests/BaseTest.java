@@ -22,16 +22,7 @@ public class BaseTest {
 
     @Before
     public void setUp() {
-        ChromeOptions options = new ChromeOptions();
-        options.setPageLoadStrategy(PageLoadStrategy.EAGER);
-
-            options.addArguments("--headless=new");
-            options.addArguments("--no-sandbox");
-            options.addArguments("--disable-dev-shm-usage");
-            options.addArguments("--window-size=1920,1080");
-
-
-        driver = new ChromeDriver(options);
+        driver = new ChromeDriver();
 
         homePage = new HomePage(driver);
         searchResultPage = new SearchResultPage(driver);
