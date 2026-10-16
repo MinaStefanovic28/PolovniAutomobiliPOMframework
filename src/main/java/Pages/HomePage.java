@@ -23,12 +23,14 @@ public class HomePage extends BasePage {
     private By priceInput = By.id("priceTo");
     private By fuelDropdown = By.id("fuel");
     private By logoHeader = By.id("headerPolovniAutomobiliLogo");
+    private By promoCreditBtn = By.cssSelector("button[data-testid=\"creditPromoOk\"]");
+
 
 
     public void acceptCookies() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            WebElement button = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(text(),'U redu')]")));
+            WebElement button = wait.until(ExpectedConditions.visibilityOfElementLocated(cookieAcceptBtn));
             button.click();
         } catch (Exception e) {
             System.out.println("Kolačići se nisu pojavili ili su već prihvaćeni, nastavljam test.");
@@ -49,10 +51,7 @@ public class HomePage extends BasePage {
     }
 
     public void clickSearchBtn() {
-        // 1. Klikni na logo ili naslov da zatvoriš otvoreni padajući meni (fuel/gorivo)
-        click(logoHeader); // ili bilo koji drugi element koji je sigurno slobodan
-
-        // 2. Zatim klikni na dugme za pretragu
+        click(logoHeader);
         click(btnPretraga);
     }
     public void open() {
@@ -82,6 +81,10 @@ public class HomePage extends BasePage {
 
     public void selectFuel(String fuel) {
         selectReactOption(fuelDropdown, fuel);
+    }
+
+    public void acceptPromoCredit() {
+        click(promoCreditBtn);
     }
 
 

@@ -18,7 +18,6 @@ public class BasePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-
     public void click(By locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
@@ -41,16 +40,12 @@ public class BasePage {
         click(postAdBtn);
     }
 
-
     public void selectReactOption(By locator, String value) {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();
 
         Actions actions = new Actions(driver);
-        actions.sendKeys(value)
-                .pause(Duration.ofMillis(500))
-                .sendKeys(Keys.ENTER)
-                .perform();
+        actions.sendKeys(value).pause(Duration.ofMillis(500)).sendKeys(Keys.ENTER).perform();
     }
 
     public void waitForUrlToContain(String fraction) {

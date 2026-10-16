@@ -9,7 +9,7 @@ public class SearchResultPage extends BasePage {
         super(driver);
     }
 
-    private By headlineOfFirstAd = By.id("29095781");
+    private By headlineOfFirstAd = By.xpath("//div[@data-testid=\"emptyAd\"][1]");
     private By priceOfFirstAd = By.xpath("(//article//span[contains(@class,'price')])[1]");
     private By numberOfSearchResults = By.tagName("h1");
 

@@ -33,6 +33,8 @@ public class PostAdPage extends BasePage {
     private By lastNameInput = By.name("lastName");
     private By submitAdButton = By.id("submit");
 
+    private By termsCheckbox = By.cssSelector(".ant-checkbox-input, .ant-checkbox-inner, input[type='checkbox']");
+
 
     public void clickOnCarCategory() {
         click(carCategoryBtn);
@@ -75,7 +77,7 @@ public class PostAdPage extends BasePage {
 
         try {
             Thread.sleep(1000);
-            WebElement checkbox = driver.findElement(By.cssSelector(".ant-checkbox-input, .ant-checkbox-inner, input[type='checkbox']"));
+            WebElement checkbox = driver.findElement(termsCheckbox);
             js.executeScript("arguments[0].click();", checkbox);
             Thread.sleep(500);
         } catch (Exception ignored) {

@@ -27,7 +27,6 @@ public class LoginPage extends BasePage {
         click(submitButton);
     }
 
-
     public void login(String email, String password) {
         enterEmail(email);
         enterPassword(password);

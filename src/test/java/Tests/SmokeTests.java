@@ -2,7 +2,6 @@ package Tests;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
 
 public class SmokeTests extends BaseTest {
 
@@ -19,7 +18,7 @@ public class SmokeTests extends BaseTest {
     }
 
     @Test
-    public void test02_ProveraElemenataBrzogPretrazivaca() {
+    public void test02_ProveraPrikazaElemenataBrzogPretrazivaca() {
         homePage.open();
         homePage.acceptCookies();
 
@@ -58,7 +57,7 @@ public class SmokeTests extends BaseTest {
     //Test Scenario 3: Autentifikacija i Kontakt Forma
 
     @Test
-    public void test05_PrijavaKorisnikaNaSistem() {
+    public void test05_NeuspesnaPrijavaPogresnimKredencijalima() {
         homePage.open();
         homePage.acceptCookies();
         homePage.clickLoginButton();
@@ -73,7 +72,14 @@ public class SmokeTests extends BaseTest {
     public void test06_SlanjePorukeProdavcuPutemKontaktForme() {
         homePage.open();
         homePage.acceptCookies();
-        driver.get("https://www.polovniautomobili.com/auto-oglasi/30111567/audi-a4-s-line?paPage=srchpg&paSection=tsbx&paPromo=true&paPageNo=1&sort=basic");
+        homePage.selectMarku("Audi");
+        homePage.selectModel("A4");
+
+        homePage.clickSearchBtn();
+
+        homePage.waitForUrlToContain("Audi");
+
+        searchResultPage.clickOnFirstAd();
         singleAdPage.clickSendMessage();
         loginPage.loginWithValidCredetntials();
         singleAdPage.clickSendMessage();
@@ -95,7 +101,7 @@ public class SmokeTests extends BaseTest {
         loginPage.loginWithValidCredetntials();
         homePage.clickLoginButton();
 
-        homePage.click(By.cssSelector("button[data-testid=\"creditPromoOk\"]"));
+        homePage.acceptPromoCredit();
         myProfilPage.openFollowedAds();
 
 
@@ -105,13 +111,10 @@ public class SmokeTests extends BaseTest {
 
 
 
-
-
-
-    // --- TEST SCENARIO 4: Postavljanje Oglasa ---
+    //Test scenario 5: Negativan test - Postavljanje oglasa bez svih obaveznih polja
 
     @Test
-    public void test05_NegativanTestSlanjeForme() {
+    public void test08_PostavljanjeOglasaSaNepotpunimObaveznimPodacima() {
         homePage.open();
         homePage.acceptCookies();
         homePage.clickLoginButton();
@@ -119,14 +122,9 @@ public class SmokeTests extends BaseTest {
         homePage.clickOnPostAd();
         postAdPage.clickOnCarCategory();
 
-        // 1. Unosimo sve podatke koje imamo spremljene u tvojoj metodi
         postAdPage.fillMandatoryForm();
-
-
-        // 2. Klikćemo na dugme za slanje
         postAdPage.clickSubmitButton();
 
-        // 3. VERIFIKACIJA: Proveravamo da je sajt izbacio grešku za marku/obavezna polja
         Assert.assertTrue(postAdPage.isSubmitBtnStillDisplayed());
     }
 

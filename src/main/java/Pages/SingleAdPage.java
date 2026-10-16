@@ -12,13 +12,12 @@ public class SingleAdPage extends BasePage {
     private By adHeadline = By.xpath("//h1[@data-testid=\"adTitleDesktop\"]");
     private By priceOfAd = By.xpath("//*[@data-testid=\"adPriceDesktop\"]");
     private By showNumberBtn = By.xpath("//*[@data-testid=\"showNumberButton\"]");
-
     private By sendMsgBtn = By.cssSelector("button[data-testid=\"sendMessageButton\"]");
 
     //pop-up Contact Seller
     private By textArea = By.xpath("//*[@placeholder=\"Tekst poruke\"]");
     private By submitMsgBtn = By.id("sendMessageSubmit");
-    public By confirmationMsg = By.id("confirmationModal");
+    public By popUpMsg = By.id("confirmationModal");
     private By closePopUpMsgBtn = By.xpath("//*[text()=\"U redu\"]");
 
 
@@ -46,16 +45,13 @@ public class SingleAdPage extends BasePage {
         click(submitMsgBtn);
     }
 
-    public String getConfirmationMsg() {
-        return readText(confirmationMsg);
-    }
 
     public void closePopUpMsg() {
         click(closePopUpMsgBtn);
     }
 
     public boolean isConfirmationMsgDisplayes() {
-        return  isDisplayed(confirmationMsg);
+        return  isDisplayed(popUpMsg);
     }
 
 
